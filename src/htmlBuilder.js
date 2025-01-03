@@ -85,6 +85,11 @@ const generateForm = () => `
       <label class="form-check-label" for="advancedToggle">高级设置</label>
     </div>
 
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="outboundToggle">
+      <label class="form-check-label" for="outboundToggle">仅输出节点</label>
+    </div>
+
     <div id="advancedOptions">
       <div class="form-section">
         ${generateRuleSetSelection()}
@@ -487,6 +492,8 @@ const submitFormFunction = () => `
         .map(checkbox => checkbox.value);
     }
     
+    const outboundToggle = document.getElementById('outboundToggle').checked;
+    
     let pin = document.getElementById('crpinToggle').checked;
     const configEditor = document.getElementById('configEditor');
     const configId = new URLSearchParams(window.location.search).get('configId') || '';
@@ -503,8 +510,8 @@ const submitFormFunction = () => `
 
     const configParam = configId ? \`&configId=\${configId}\` : '';
     const xrayUrl = \`\${window.location.origin}/xray?config=\${encodeURIComponent(inputString)}\${configParam}\`;
-    const singboxUrl = \`\${window.location.origin}/singbox?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}\`;
-    const clashUrl = \`\${window.location.origin}/clash?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}\`;
+    const singboxUrl = \`\${window.location.origin}/singbox?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}&onlyOutbound=\${outboundToggle}\`;
+    const clashUrl = \`\${window.location.origin}/clash?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}&onlyOutbound=\${outboundToggle}\`;
 
     document.getElementById('xrayLink').value = xrayUrl;
     document.getElementById('singboxLink').value = singboxUrl;

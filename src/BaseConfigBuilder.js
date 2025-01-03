@@ -2,17 +2,21 @@ import { ProxyParser } from './ProxyParsers.js';
 import { DeepCopy } from './utils.js';
 
 export class BaseConfigBuilder {
-	constructor(inputString, baseConfig) {
+	constructor(inputString, baseConfig, onlyOutbound) {
 		this.inputString = inputString;
 		this.config = DeepCopy(baseConfig);
 		this.customRules = [];
+		this.onlyOutbound = onlyOutbound;
 	}
 
 	async build() {
 		const customItems = await this.parseCustomItems();
 		this.addCustomItems(customItems);
-		this.addSelectors();
-		return this.formatConfig();
+		if (!this.onlyOutbound) {
+			this.addSelectors();
+			return this.formatConfig();
+		}
+		return this.formatConfigWithOut();
 	}
 
 	async parseCustomItems() {
@@ -49,5 +53,10 @@ export class BaseConfigBuilder {
 	formatConfig() {
 		// This method should be implemented in child classes
 		throw new Error('formatConfig must be implemented in child class');
+	}
+
+	formatConfigWithOut() {
+		// This method should be implemented in child classes
+		throw new Error('formatConfigWithOut must be implemented in child class');
 	}
 }

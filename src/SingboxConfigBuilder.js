@@ -1,13 +1,17 @@
-import { SING_BOX_CONFIG, generateRuleSets, generateRules, getOutbounds, PREDEFINED_RULE_SETS} from './config.js';
+import { SING_BOX_CONFIG, SING_BOX_CONFIG_WITH_OUT, generateRuleSets, generateRules, getOutbounds, PREDEFINED_RULE_SETS} from './config.js';
 import { BaseConfigBuilder } from './BaseConfigBuilder.js';
 import { DeepCopy } from './utils.js';
 
 export class ConfigBuilder extends BaseConfigBuilder {
-	constructor(inputString, selectedRules, customRules, pin, baseConfig) {
+	constructor(inputString, selectedRules, customRules, pin, baseConfig, onlyOutbound) {
 		if (baseConfig === undefined) {
-			baseConfig = SING_BOX_CONFIG
+			if (onlyOutbound) {
+				baseConfig = SING_BOX_CONFIG_WITH_OUT
+			} else {
+				baseConfig = SING_BOX_CONFIG
+			}
 		}
-		super(inputString, baseConfig);
+		super(inputString, baseConfig, onlyOutbound);
 		this.selectedRules = selectedRules;
 		this.customRules = customRules;
 		this.pin = pin;
@@ -107,6 +111,10 @@ export class ConfigBuilder extends BaseConfigBuilder {
 		this.config.route.auto_detect_interface = true;
 		this.config.route.final = '🐟 漏网之鱼';
 
+		return this.config;
+	}
+
+	formatConfigWithOut() {
 		return this.config;
 	}
 }

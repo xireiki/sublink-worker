@@ -1,14 +1,18 @@
 import yaml from 'js-yaml';
-import { CLASH_CONFIG,  generateRuleSets, generateRules, getOutbounds, PREDEFINED_RULE_SETS} from './config.js';
+import { CLASH_CONFIG, CLASH_CONFIG_WITH_OUT, generateRuleSets, generateRules, getOutbounds, PREDEFINED_RULE_SETS} from './config.js';
 import { BaseConfigBuilder } from './BaseConfigBuilder.js';
 import { DeepCopy } from './utils.js';
 
 export class ClashConfigBuilder extends BaseConfigBuilder {
-	constructor(inputString, selectedRules, customRules, pin, baseConfig) {
+	constructor(inputString, selectedRules, customRules, pin, baseConfig, onlyOutbound) {
 		if (!baseConfig) {
-			baseConfig = CLASH_CONFIG
+			if (onlyOutbound) {
+				baseConfig = CLASH_CONFIG_WITH_OUT
+			} else {
+				baseConfig = CLASH_CONFIG
+			}
 		}
-		super(inputString, baseConfig);
+		super(inputString, baseConfig, onlyOutbound);
 		this.selectedRules = selectedRules;
 		this.customRules = customRules;
 		this.pin = pin;
@@ -78,6 +82,7 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
 			proxies: ['🚀 节点选择', ...proxyList]
 		});
 	}
+
 	formatConfig() {
 		const rules = generateRules(this.selectedRules, this.customRules, this.pin);
 
@@ -93,6 +98,10 @@ export class ClashConfigBuilder extends BaseConfigBuilder {
 		// Add the final catch-all rule
 		this.config.rules.push('MATCH,🐟 漏网之鱼');
 
+		return yaml.dump(this.config);
+	}
+
+	formatConfigWithOut() {
 		return yaml.dump(this.config);
 	}
 

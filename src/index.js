@@ -2,7 +2,7 @@ import { ConfigBuilder } from './SingboxConfigBuilder.js';
 import { generateHtml } from './htmlBuilder.js';
 import { ClashConfigBuilder } from './ClashConfigBuilder.js';
 import { encodeBase64, decodeBase64, GenerateWebPath, DeepCopy } from './utils.js';
-import { PREDEFINED_RULE_SETS, SING_BOX_CONFIG, CLASH_CONFIG } from './config.js';
+import { PREDEFINED_RULE_SETS, SING_BOX_CONFIG, SING_BOX_CONFIG_WITH_OUT, CLASH_CONFIG, CLASH_CONFIG_WITH_OUT } from './config.js';
 import yaml from 'js-yaml';
 
 addEventListener('fetch', event => {
@@ -56,6 +56,7 @@ async function handleRequest(request) {
 			const inputString = url.searchParams.get('config');
 			let selectedRules = url.searchParams.get('selectedRules');
 			let customRules = url.searchParams.get('customRules');
+			let onlyOutbound = url.searchParams.get('onlyOutbound') === "true" ? true : false;
 			let pin = url.searchParams.get('pin');
 
 			if (!inputString) {
@@ -97,9 +98,9 @@ async function handleRequest(request) {
 			// Env pin is use to pin customRules to top
 			let configBuilder;
 			if (url.pathname.startsWith('/singbox')) {
-				configBuilder = new ConfigBuilder(inputString, selectedRules, customRules, pin, baseConfig);
+				configBuilder = new ConfigBuilder(inputString, selectedRules, customRules, pin, baseConfig, onlyOutbound);
 			} else {
-				configBuilder = new ClashConfigBuilder(inputString, selectedRules, customRules, pin, baseConfig);
+				configBuilder = new ClashConfigBuilder(inputString, selectedRules, customRules, pin, baseConfig, onlyOutbound);
 			}
 
 			const config = await configBuilder.build();

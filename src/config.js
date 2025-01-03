@@ -422,6 +422,10 @@ export const SING_BOX_CONFIG = {
 	}
 };
 
+export const SING_BOX_CONFIG_WITH_OUT = {
+	outbounds: []
+}
+
 export const CLASH_CONFIG = {
 	port: 7890,
 	'socks-port': 7891,
@@ -455,3 +459,7 @@ export const CLASH_CONFIG = {
 	proxies: [],
 	'proxy-groups': [],
 };
+
+export const CLASH_CONFIG_WITH_OUT = {
+	proxies: []
+}

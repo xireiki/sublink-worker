@@ -82,7 +82,6 @@ class ShadowsocksParser {
 			"server_port": parseInt(server_port),
 			"method": method,
 			"password": password,
-			"network": 'tcp',
 			"tcp_fast_open": false
 		};
 	}
@@ -120,7 +119,6 @@ class VmessParser {
 			"uuid": vmessConfig.id,
 			"alter_id": parseInt(vmessConfig.aid),
 			"security": vmessConfig.scy || "auto",
-			"network": "tcp",
 			"tcp_fast_open": false,
 			"transport": transport,
 			"tls": tls.enabled ? tls : undefined
@@ -154,7 +152,6 @@ class VlessParser {
 			tcp_fast_open: false,
 			tls: tls,
 			transport: transport,
-			network: "tcp",
 			flow: params.flow ?? undefined
 		};
 	}
@@ -222,7 +219,6 @@ class TrojanParser {
 			server: host,
 			server_port: port,
 			password: password || parsedURL.username,
-			network: "tcp",
 			tcp_fast_open: false,
 			tls: tls,
 			transport: transport,

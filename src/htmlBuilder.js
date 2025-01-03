@@ -510,8 +510,28 @@ const submitFormFunction = () => `
 
     const configParam = configId ? \`&configId=\${configId}\` : '';
     const xrayUrl = \`\${window.location.origin}/xray?config=\${encodeURIComponent(inputString)}\${configParam}\`;
-    const singboxUrl = \`\${window.location.origin}/sing-box?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}&onlyOutbound=\${outboundToggle}\`;
-    const clashUrl = \`\${window.location.origin}/clash?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}&onlyOutbound=\${outboundToggle}\`;
+    let singboxUrl = \`\${window.location.origin}/sing-box?config=\${encodeURIComponent(inputString)}\${configParam}\`;
+    let clashUrl = \`\${window.location.origin}/clash?config=\${encodeURIComponent(inputString)}\${configParam}\`;
+    if (selectedRules.length) {
+      const selectedRulesStr = \`&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}\`;
+      singboxUrl += selectedRulesStr;
+      clashUrl += selectedRulesStr;
+    }
+    if (customRules.length) {
+      const customRulesStr = \`&customRules=\${encodeURIComponent(JSON.stringify(customRules))}\`;
+      singboxUrl += customRulesStr;
+      clashUrl += customRulesStr;
+    }
+    if (pin) {
+      const pinStr = \`&pin=\${pin}\`;
+      singboxUrl += pinStr;
+      clashUrl += pinStr;
+    }
+    if (outboundToggle) {
+      const outStr = \`&onlyOutbound=\${outboundToggle}\`;
+      singboxUrl += outStr;
+      clashUrl += outStr;
+    }
 
     document.getElementById('xrayLink').value = xrayUrl;
     document.getElementById('singboxLink').value = singboxUrl;

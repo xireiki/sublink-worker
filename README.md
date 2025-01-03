@@ -63,8 +63,8 @@
 详细的 API 文档请参考 [API-doc.md](/docs/API-doc.md)
 
 ### 主要端点
-- `/singbox` - 生成 Sing-Box 配置
-- `/clash` - 生成 Clash 配置
+- `/sing-box` - 生成 Sing-Box 配置
+- `/clash`(默认) or `/clash.meta` or `/mihomo` - 生成 Clash 配置
 - `/xray` - 生成 Xray 配置
 - `/shorten` - 生成短链接
 

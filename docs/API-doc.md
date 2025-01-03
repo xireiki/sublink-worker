@@ -20,7 +20,7 @@ https://your-worker-domain.workers.dev
 
 #### Sing-Box 配置
 
-- **URL**: `/singbox`
+- **URL**: `/sing-box`
 - **方法**: GET
 - **参数**:
   - `config` (必需): URL 编码的字符串,包含一个或多个代理配置
@@ -31,14 +31,14 @@ https://your-worker-domain.workers.dev
 
 **示例**:
 ```
-/singbox?config=vmess%3A%2F%2Fexample&selectedRules=balanced&customRules=%5B%7B%22sites%22%3A%5B%22example.com%22%5D%2C%22ips%22%3A%5B%22192.168.1.1%22%5D%2C%22domain_suffix%22%3A%5B%22.com%22%5D%2C%22ip_cidr%22%3A%5B%2210.0.0.0%2F8%22%5D%2C%22outbound%22%3A%22MyCustomRule%22%7D%5D
+/sing-box?config=vmess%3A%2F%2Fexample&selectedRules=balanced&customRules=%5B%7B%22sites%22%3A%5B%22example.com%22%5D%2C%22ips%22%3A%5B%22192.168.1.1%22%5D%2C%22domain_suffix%22%3A%5B%22.com%22%5D%2C%22ip_cidr%22%3A%5B%2210.0.0.0%2F8%22%5D%2C%22outbound%22%3A%22MyCustomRule%22%7D%5D
 ```
 
 #### Clash 配置
 
-- **URL**: `/clash`
+- **URL**: `/clash` or `/clash.meta` or `/mihomo`
 - **方法**: GET
-- **参数**: 与 Sing-Box 配置相同
+- **参数**: 与 sing-box 配置相同
 
 #### Xray 配置
 
@@ -81,7 +81,7 @@ https://your-worker-domain.workers.dev
 
   ```json
   {
-    "type": "clash" | "singbox",  // 配置类型
+    "type": "clash" | "sing-box",  // 配置类型
     "content": "配置内容"  // 字符串格式的配置内容
   }
   ```
@@ -199,7 +199,7 @@ API 在出现问题时将返回适当的 HTTP 状态码和错误消息:
 
 1. 生成带有平衡规则集的 Sing-Box 配置:
    ```
-   /singbox?config=vmess%3A%2F%2Fexample&selectedRules=balanced
+   /sing-box?config=vmess%3A%2F%2Fexample&selectedRules=balanced
    ```
 
 2. 生成带有置顶自定义规则的 Clash 配置:

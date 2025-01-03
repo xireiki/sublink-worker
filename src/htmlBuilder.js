@@ -107,7 +107,7 @@ const generateForm = () => `
         </div>
         <div class="mb-3">
           <select class="form-select" id="configType">
-            <option value="singbox">sing-box (JSON)</option>
+            <option value="sing-box">sing-box (JSON)</option>
             <option value="clash">clash (YAML)</option>
           </select>
         </div>
@@ -510,7 +510,7 @@ const submitFormFunction = () => `
 
     const configParam = configId ? \`&configId=\${configId}\` : '';
     const xrayUrl = \`\${window.location.origin}/xray?config=\${encodeURIComponent(inputString)}\${configParam}\`;
-    const singboxUrl = \`\${window.location.origin}/singbox?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}&onlyOutbound=\${outboundToggle}\`;
+    const singboxUrl = \`\${window.location.origin}/sing-box?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}&onlyOutbound=\${outboundToggle}\`;
     const clashUrl = \`\${window.location.origin}/clash?config=\${encodeURIComponent(inputString)}&selectedRules=\${encodeURIComponent(JSON.stringify(selectedRules))}&customRules=\${encodeURIComponent(JSON.stringify(customRules))}&pin=\${pin}\${configParam}&onlyOutbound=\${outboundToggle}\`;
 
     document.getElementById('xrayLink').value = xrayUrl;
@@ -596,7 +596,7 @@ const submitFormFunction = () => `
     document.getElementById('advancedToggle').checked = false;
     document.getElementById('advancedOptions').classList.remove('show');
     document.getElementById('configEditor').value = '';
-    document.getElementById('configType').value = 'singbox';  // 重置为默认值
+    document.getElementById('configType').value = 'sing-box';  // 重置为默认值
     
     localStorage.removeItem('customPath');
     document.getElementById('customShortCode').value = '';

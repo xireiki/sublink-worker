@@ -44,7 +44,7 @@ async function handleRequest(request) {
 			const rulesToUse = selectedRules.length > 0 ? selectedRules : ['广告拦截', '谷歌服务', '国外媒体', '电报消息'];
 
 			const xrayUrl = `${url.origin}/xray?config=${encodeURIComponent(inputString)}`;
-			const singboxUrl = `${url.origin}/singbox?config=${encodeURIComponent(inputString)}&selectedRules=${encodeURIComponent(JSON.stringify(rulesToUse))}&customRules=${encodeURIComponent(JSON.stringify(customRules))}pin=${pin}`;
+			const singboxUrl = `${url.origin}/sing-box?config=${encodeURIComponent(inputString)}&selectedRules=${encodeURIComponent(JSON.stringify(rulesToUse))}&customRules=${encodeURIComponent(JSON.stringify(customRules))}pin=${pin}`;
 			const clashUrl = `${url.origin}/clash?config=${encodeURIComponent(inputString)}&selectedRules=${encodeURIComponent(JSON.stringify(rulesToUse))}&customRules=${encodeURIComponent(JSON.stringify(customRules))}pin=${pin}`;
 
 			return new Response(generateHtml(xrayUrl, singboxUrl, clashUrl), {
@@ -52,7 +52,7 @@ async function handleRequest(request) {
 					'Content-Type': 'text/html'
 				}
 			});
-		} else if (url.pathname.startsWith('/singbox') || url.pathname.startsWith('/clash')) {
+		} else if (url.pathname.startsWith('/sing-box') || url.pathname.startsWith('/clash') || url.pathname.startsWith('/mihomo') || url.pathname.startsWith('/clash.meta')) {
 			const inputString = url.searchParams.get('config');
 			let selectedRules = url.searchParams.get('selectedRules');
 			let customRules = url.searchParams.get('customRules');
@@ -97,7 +97,7 @@ async function handleRequest(request) {
 
 			// Env pin is use to pin customRules to top
 			let configBuilder;
-			if (url.pathname.startsWith('/singbox')) {
+			if (url.pathname.startsWith('/sing-box')) {
 				configBuilder = new ConfigBuilder(inputString, selectedRules, customRules, pin, baseConfig, onlyOutbound);
 			} else {
 				configBuilder = new ClashConfigBuilder(inputString, selectedRules, customRules, pin, baseConfig, onlyOutbound);
@@ -106,9 +106,9 @@ async function handleRequest(request) {
 			const config = await configBuilder.build();
 
 			return new Response(
-				url.pathname.startsWith('/singbox') ? JSON.stringify(config, null, 2) : config, {
+				url.pathname.startsWith('/sing-box') ? JSON.stringify(config, null, 2) : config, {
 					headers: {
-						'content-type': url.pathname.startsWith('/singbox') ?
+						'content-type': url.pathname.startsWith('/sing-box') ?
 							'application/json; charset=utf-8' :
 							'text/yaml; charset=utf-8'
 					}
@@ -178,7 +178,7 @@ async function handleRequest(request) {
 			let originalUrl;
 
 			if (url.pathname.startsWith('/b/')) {
-				originalUrl = `${url.origin}/singbox${originalParam}`;
+				originalUrl = `${url.origin}/sing-box${originalParam}`;
 			} else if (url.pathname.startsWith('/c/')) {
 				originalUrl = `${url.origin}/clash${originalParam}`;
 			} else if (url.pathname.startsWith('/x/')) {

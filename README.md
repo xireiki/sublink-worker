@@ -12,7 +12,7 @@
   <br>
 
   <p>
-    <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/7Sageer/sublink-worker">
+    <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/xireiki/sublink-worker">
       <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers"/>
     </a>
   </p>
@@ -55,6 +55,7 @@
 ### Web 界面特性
 - 用户友好的操作界面
 - 提供多种预定义规则集
+- 支持仅输出节点信息
 - 可自建关于 geo-site、geo-ip、ip-cidr 和 domain-suffix 的自定义策略组
 
 ## 📖 API 文档

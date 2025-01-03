@@ -143,12 +143,12 @@ const generateSubscribeLinks = (xrayUrl, singboxUrl, clashUrl, baseUrl) => `
     <div class="mb-3">
       <label for="customShortCode" class="form-label">自定义路径（可选）:</label>
       <div class="input-group flex-nowrap">
-        <span class="input-group-text text-truncate" style="max-width: 400px;" title="${baseUrl}/s/">
+        <!--<span class="input-group-text text-truncate" style="max-width: 400px;" title="${baseUrl}/s/">
           ${baseUrl}/s/
-        </span>
+        </span>-->
         <input type="text" class="form-control" id="customShortCode" placeholder="e.g. my-custom-link">
         <select id="savedCustomPaths" class="form-select" style="max-width: 200px;">
-          <option value="">Saved paths</option>
+          <option value="">保存</option>
         </select>
         <button class="btn btn-outline-danger" type="button" onclick="deleteSelectedPath()">
           <i class="fas fa-trash-alt"></i>
@@ -212,7 +212,7 @@ const customPathFunctions = () => `
   function updateSavedPathsDropdown() {
     const savedPaths = JSON.parse(localStorage.getItem('savedCustomPaths') || '[]');
     const dropdown = document.getElementById('savedCustomPaths');
-    dropdown.innerHTML = '<option value="">Saved paths</option>';
+    dropdown.innerHTML = '<option value="">保存</option>';
     savedPaths.forEach(path => {
       const option = document.createElement('option');
       option.value = path;
